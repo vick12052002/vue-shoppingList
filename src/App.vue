@@ -17,7 +17,7 @@
     </main>
   </div>
 </template>
-ƒ
+
 <script>
 import '../public/normalize.css';
 import '../public/index.css';
