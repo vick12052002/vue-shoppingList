@@ -1,28 +1,58 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <main class="container">
+      <h1>購物清單</h1>
+      <AddItem />
+      <ItemLists :itemList="itemList" />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import '../public/normalize.css';
+import '../public/index.css';
+import AddItem from './components/AddItem.vue';
+import ItemLists from './components/ItemLists.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
-</script>
+    AddItem,
+    ItemLists
+  },
+  methods:{
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  },
+  data() {
+    return {
+      itemList: [
+        {
+          id: 1,
+          name: '十全大補湯十全大補湯十全大補湯十全大補湯十全大補湯十全大補湯',
+          price: 100,
+          amount: 10,
+        },
+        {
+          id: 2,
+          name: '東山鴨頭',
+          price: 200,
+          amount: 3,
+        },
+        {
+          id: 3,
+          name: '花雕雞麵',
+          price: 90,
+          amount: 100,
+        },
+      ],
+      input: {
+        name: '',
+        price: 0,
+        amount: 0,
+      },
+      total: 0,
+      lastId: '',
+      hasError: false,
+    };
+  },
+};
+</script>
