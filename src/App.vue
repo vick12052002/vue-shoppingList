@@ -2,8 +2,8 @@
   <div id="app">
     <h1 class="header-title">購物清單</h1>
     <main class="container">
-      <AddItem :input="input" @click="addItem" @keyup.enter="addItem" />
-      <ItemLists :itemList="itemList" @click="deleteItem" />
+      <AddItem :input="input" @click="addItem" />
+      <ItemLists :itemList="itemList" @delete="deleteItem($event)"/>
     </main>
   </div>
 </template>
@@ -37,12 +37,12 @@ export default {
         price: 0,
         amount: 0,
       };
-      
+
     },
     deleteItem(id) {
       const newList = this.itemList.filter((item) => item.id !== id);
       this.itemList = newList;
-      this.countTotal();
+      // this.countTotal();
     },
   },
   data() {

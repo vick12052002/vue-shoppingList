@@ -12,7 +12,7 @@
       <div class="list-item item-name">{{ item.name }}</div>
       <div class="list-item">{{ item.price }}</div>
       <div class="list-item">{{ item.amount }}</div>
-      <button class="delete-btn btn" @click="deleteItem(item.id)">刪除</button>
+      <button class="delete-btn btn" @click="$emit('delete', item.id)">刪除</button>
     </div>
   </div>
 </template>
@@ -28,4 +28,3 @@ export default {
   },
 };
 </script>
-
