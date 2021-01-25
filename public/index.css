@@ -70,10 +70,14 @@ body {
 
 .item-name {
   width: 200px;
+  flex-grow: 3;
 }
-
+.list-title-amount{
+  flex-grow: 2;
+}
 .total-container {
   text-align: right;
+  margin-top: 20px;
 }
 
 .total {
@@ -84,9 +88,8 @@ body {
 
 .error-message {
   color: #ff1111;
-  /* display: inline-block; */
   position: absolute;
-  top:43px;
+  top: 43px;
   left: 50px;
   font-size: 16px;
 }
@@ -111,37 +114,52 @@ body {
   margin-left: 10px;
 }
 
-.input-container{
+.input-container {
   position: relative;
   padding-bottom: 40px;
-  margin-right:20px;
+  margin-right: 20px;
   font-size: 22px;
 }
-.input-container input{
-  border:none ;
+
+.input-container input {
+  border: none;
   max-width: 150px;
   box-sizing: border-box;
-  padding: 5px ;
-  
+  padding: 5px;
 }
 
-.input-container input:focus{
+.input-container input:focus {
   outline: none;
   border-bottom: 2px solid #8489ee;
   margin-bottom: -2px;
-
 }
-.delete-btn{
+
+.delete-btn {
   background-color: #c0c3ff;
 }
-.delete-btn:hover{
+
+.delete-btn:hover {
   background-color: #ff1111;
 }
+
 .inputs {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
 }
+
+.empty {
+  background-color: #c0c3ff;
+  width: 90%;
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.item-price, .item-amount{
+  flex-grow: 1;
+}
+
 @media(max-width: 768px) {
   .inputs {
     display: flex;
@@ -154,6 +172,7 @@ body {
     min-width: auto;
   }
 }
+
 @media(max-width: 481px) {
   .inputs {
     display: flex;
