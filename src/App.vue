@@ -4,6 +4,11 @@
     <main class="container">
       <AddItem :input="input" @click="addItem" />
       <ItemLists :itemList="itemList" @delete="deleteItem($event)" />
+      <div class="item-list-container">
+        <div class="total-container">
+          <span class="total">總計：{{ total }}</span>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -25,7 +30,7 @@ export default {
       if (this.lastId.length === 0) {
         this.lastId = this.itemList[this.itemList.length - 1].id;
       }
-      this.lastId += 1
+      this.lastId += 1;
       let { name, price, amount } = this.input;
       this.itemList.push({
         name,
@@ -38,28 +43,24 @@ export default {
         price: 0,
         amount: 0,
       };
+      this.countTotal();
     },
     deleteItem(id) {
       const newList = this.itemList.filter((item) => item.id !== id);
       this.itemList = newList;
-      // this.countTotal();
+      this.countTotal();
+    },
+    countTotal() {
+      if (this.itemList.length === 0) {
+        return (this.total = 0);
+      }
+      const itemsCount = this.itemList.map((item) => item.price * item.amount);
+      this.total = itemsCount.reduce((accum, curr) => accum + curr);
     },
   },
   data() {
     return {
       itemList: [
-        {
-          id: 1,
-          name: '十全大補湯十全大補湯十全大補湯十全大補湯十全大補湯十全大補湯',
-          price: 100,
-          amount: 10,
-        },
-        {
-          id: 2,
-          name: '東山鴨頭',
-          price: 200,
-          amount: 3,
-        },
       ],
       input: {
         name: '',
@@ -67,7 +68,7 @@ export default {
         amount: 0,
       },
       total: 0,
-      lastId: '',
+      lastId: 0,
       hasError: false,
     };
   },
