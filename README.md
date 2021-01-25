@@ -1,7 +1,7 @@
 ## vue-shoppingList
 
 這是一個以 Vue 所建立的簡易購物清單頁面
-
+![demo](https://i.imgur.com/DavZcFW.png)
 [demo](https://vick12052002.github.io/vue-shoppingList/)
 ## 使用技術
 - Vue-cli 4.x
