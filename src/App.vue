@@ -3,7 +3,7 @@
     <h1 class="header-title">購物清單</h1>
     <main class="container">
       <AddItem :input="input" @click="addItem" />
-      <ItemLists :itemList="itemList" @delete="deleteItem($event)"/>
+      <ItemLists :itemList="itemList" @delete="deleteItem($event)" />
     </main>
   </div>
 </template>
@@ -23,8 +23,9 @@ export default {
   methods: {
     addItem() {
       if (this.lastId.length === 0) {
-        this.lastId = this.itemList[this.itemList.length - 1].id+1;
+        this.lastId = this.itemList[this.itemList.length - 1].id;
       }
+      this.lastId += 1
       let { name, price, amount } = this.input;
       this.itemList.push({
         name,
@@ -37,7 +38,6 @@ export default {
         price: 0,
         amount: 0,
       };
-
     },
     deleteItem(id) {
       const newList = this.itemList.filter((item) => item.id !== id);
