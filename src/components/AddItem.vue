@@ -14,7 +14,7 @@
         <input type="number" name="amount" v-model="input.amount" />
         <span class="error-message">請輸入數量</span>
       </label>
-      <button class="submit-btn btn" @click="addItem()" @keyup.enter="addItem()">新增</button>
+      <button class="submit-btn btn" @click="$emit('click')" >新增</button>
     </div>
   </div>
 </template>
@@ -30,10 +30,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-</style>
