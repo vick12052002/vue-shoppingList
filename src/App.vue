@@ -6,7 +6,6 @@
         :input="input"
         @handleClick="addItem"
         @handleChange="checkInputsValid"
-        @handleKeyup="checkInputsValid"
       />
       <ItemLists :itemList="itemList" @delete="deleteItem($event)" />
       <div class="item-list-container">
