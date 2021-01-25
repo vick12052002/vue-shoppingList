@@ -59,7 +59,7 @@ export default {
       this.countTotal();
     },
     deleteItem(id) {
-      const newList = this.itemList.fＦＦＦilter((item) => item.id !== id);
+      const newList = this.itemList.filter((item) => item.id !== id);
       this.itemList = newList;
       this.countTotal();
     },
