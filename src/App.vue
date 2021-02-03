@@ -1,31 +1,27 @@
-<template>
-  <div id="app">
-    <h1 class="header-title">購物清單</h1>
-    <main class="container">
-      <AddItem
-        :input="input"
-        @handleClick="addItem"
-        @handleChange="checkInputsValid"
-      />
-      <ItemLists :itemList="itemList" @delete="deleteItem($event)" />
-      <div class="item-list-container">
-        <div class="total-container">
-          <span class="total">總計：{{ total }}</span>
-        </div>
-      </div>
-    </main>
-  </div>
+<template lang="pug">
+#app
+  h1.header-title 購物清單
+  main.container
+    AddItem(
+      :input="input",
+      @handleClick="addItem",
+      @handleChange="checkInputsValid"
+    )
+    ItemLists(:itemList="itemList", @delete="deleteItem($event)")
+    .item-list-container
+      .total-container
+        span.total 總計：{{ total }}
 </template>
 
 <script>
-import '../public/normalize.css';
-import '../public/index.css';
-import AddItem from './components/AddItem.vue';
-import ItemLists from './components/ItemLists.vue';
-import { isPriceValid, isAmountValid } from './utilis';
+import "../public/normalize.css";
+import "../public/index.css";
+import AddItem from "./components/AddItem.vue";
+import ItemLists from "./components/ItemLists.vue";
+import { isPriceValid, isAmountValid } from "./utilis";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AddItem,
     ItemLists,
@@ -46,7 +42,7 @@ export default {
         id: this.lastId,
       });
       this.input = {
-        name: '',
+        name: "",
         price: 0,
         amount: 0,
         hasError: {
@@ -93,7 +89,7 @@ export default {
     return {
       itemList: [],
       input: {
-        name: '',
+        name: "",
         price: 0,
         amount: 0,
         hasError: {
