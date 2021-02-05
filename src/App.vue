@@ -1,106 +1,53 @@
 <template lang="pug">
 #app
-  h1.header-title 購物清單
-  main.container
-    AddItem(
-      :input="input",
-      @handleClick="addItem",
-      @handleChange="checkInputsValid"
-    )
-    ItemLists(:itemList="itemList", @delete="deleteItem($event)")
-    .item-list-container
-      .total-container
-        span.total 總計：{{ total }}
+  .wrapper
+    router-link.btn.delete-btn(to="/") 首頁
+    router-link.btn.delete-btn(to="/addList") 新增清單
+  router-view 
 </template>
 
 <script>
 import "../public/normalize.css";
 import "../public/index.css";
-import AddItem from "./components/AddItem.vue";
-import ItemLists from "./components/ItemLists.vue";
-import { isPriceValid, isAmountValid } from "./utilis";
 
 export default {
   name: "App",
-  components: {
-    AddItem,
-    ItemLists,
+  components: {},
+beforeCreate () {
+    console.log('App beforeCreate.');
   },
-  methods: {
-    addItem() {
-      this.checkInputsValid();
-      if (Object.values(this.input.hasError).includes(true)) return;
-      if (this.lastId.length === 0) {
-        this.lastId = this.itemList[this.itemList.length - 1].id;
-      }
-      this.lastId += 1;
-      let { name, price, amount } = this.input;
-      this.itemList.push({
-        name,
-        price,
-        amount,
-        id: this.lastId,
-      });
-      this.input = {
-        name: "",
-        price: 0,
-        amount: 0,
-        hasError: {
-          name: false,
-          amount: false,
-          price: false,
-        },
-      };
-      this.countTotal();
-    },
-    deleteItem(id) {
-      const newList = this.itemList.filter((item) => item.id !== id);
-      this.itemList = newList;
-      this.countTotal();
-    },
-    countTotal() {
-      if (this.itemList.length === 0) {
-        return (this.total = 0);
-      }
-      const itemsCount = this.itemList.map((item) => item.price * item.amount);
-      this.total = itemsCount.reduce((accum, curr) => accum + curr);
-    },
-    checkInputsValid() {
-      if (this.input.name.length > 20 || this.input.name.length === 0) {
-        this.input.hasError.name = true;
-      } else {
-        this.input.hasError.name = false;
-      }
-
-      if (this.input.price === 0 || !isPriceValid(this.input.price)) {
-        this.input.hasError.price = true;
-      } else {
-        this.input.hasError.price = false;
-      }
-
-      if (this.input.amount === 0 || !isAmountValid(this.input.amount)) {
-        this.input.hasError.amount = true;
-      } else {
-        this.input.hasError.amount = false;
-      }
-    },
+  created () {
+    console.log('App created.');
   },
-  data() {
-    return {
-      itemList: [],
-      input: {
-        name: "",
-        price: 0,
-        amount: 0,
-        hasError: {
-          name: false,
-          amount: false,
-          price: false,
-        },
-      },
-      total: 0,
-      lastId: 0,
-    };
+  beforeMount () {
+    console.log('App beforeMount.');
   },
+  mounted () {
+    console.log('App mounted.');
+  },
+  beforeUpdate () {
+    console.log('App beforeUpdate.');
+  },
+  updated () {
+    console.log('App updated.');
+  },
+  beforeDestroy () {
+    console.log('App beforeDestroy.');
+  },
+  destroyed () {
+    console.log('App destroyed.');
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('App beforeRouterEnter.');
+    next();
+  },
+  beforeRouteUpdate (to, from, next) {
+    console.log('App beforeRouterUpdate.');
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('App beforeRouterLeave.');
+    next();
+  }
 };
 </script>
