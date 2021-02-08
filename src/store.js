@@ -8,6 +8,8 @@ export default new Vuex.Store({
     lists: [
       {
         id: 1,
+        total: 0,
+        lastItemId: 3,
         itemList: [
           {
             name: '111',
@@ -29,7 +31,6 @@ export default new Vuex.Store({
             id: 3,
           },
         ],
-        lastItemId: 3,
       },
       {
         id: 2,
@@ -54,7 +55,6 @@ export default new Vuex.Store({
         price: false,
       },
     },
-    total: 0,
     lastListId: 2,
   },
   getters: {
@@ -69,6 +69,16 @@ export default new Vuex.Store({
         return list.id === Number(id);
       });
       return target[0].itemList;
+    },
+    getItemsTotal: (state) => ({ id }) => {
+      const targetList = state.lists.filter((list) => {
+        return list.id === Number(id);
+      });
+
+      if (targetList.length === 0) return 0;
+      const itemsCount = targetList.map((item) => item.price * item.amount);
+      const total = itemsCount.reduce((accu, curr) => accu + curr);
+      return total;
     },
   },
   mutations: {
@@ -86,12 +96,11 @@ export default new Vuex.Store({
       });
       state.lists = newList;
     },
-    countTotal() {
-      if (this.itemList.length === 0) {
-        return (this.total = 0);
-      }
-      const itemsCount = this.itemList.map((item) => item.price * item.amount);
-      this.total = itemsCount.reduce((accum, curr) => accum + curr);
+    addList(state,newList) {
+      state.lists.push({
+        ...newList,
+        id:state.lastListId += 1
+      })
     },
     deleteList(state, id) {
       const newList = state.lists.filter((list) => list.id !== id);

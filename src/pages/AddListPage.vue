@@ -5,10 +5,10 @@
     router-link.btn.back-btn(to="/") 返回首頁
     AddItem(
       :input="input",
-      @handleClick="addItem",
+      @handleClick="handleAddItem",
       @handleChange="checkInputsValid"
     )
-    ItemLists(:itemList="itemList", @delete="deleteItem($event)")
+    ItemLists(:itemList="list", @delete="deleteItem($event)")
       .total-container
         span.total 總計：{{ total }}
 </template>
@@ -17,6 +17,7 @@
 import AddItem from "../components/AddItem";
 import ItemLists from "../components/ItemLists.vue";
 import { isPriceValid, isAmountValid } from "../utilis";
+import { mapMutations } from "vuex";
 
 export default {
   name: "App",
@@ -24,34 +25,38 @@ export default {
     AddItem,
     ItemLists,
   },
-   beforeMount() {
-    console.log("beforeMount!!");
-    console.log("beforeMount params", this.$route.params);
-    console.log("beforeMount path", this.$route.path);
-    console.log("beforeMount query", this.$route.query);
-  },
   mounted() {
     console.log("mouted!!");
     console.log("mouted params", this.$route.params);
     console.log("mouted path", this.$route.path);
     console.log("mouted query", this.$route.query);
   },
-
+  beforeDestroy() {
+    if (this.itemList.length === 0) return;
+    this.$store.commit("addList", {
+      itemList: this.itemList,
+      lastItemId: this.lastItemId,
+    });
+  },
+  computed: {
+    list() {
+      return this.itemList;
+    },
+  },
   methods: {
-    addItem() {
+    ...mapMutations(["deleteListItem", "addListItem"]),
+
+    handleAddItem() {
       this.checkInputsValid();
-      if (Object.values(this.input.hasError).includes(true)) return;
-      if (this.lastId.length === 0) {
-        this.lastId = this.itemList[this.itemList.length - 1].id;
-      }
-      this.lastId += 1;
-      let { name, price, amount } = this.input;
+      const isValid = this.checkInputsValid();
+      if (isValid) return;
       this.itemList.push({
-        name,
-        price,
-        amount,
-        id: this.lastId,
+        name: this.input.name,
+        price: this.input.price,
+        amount: this.input.amount,
+        id: (this.lastItemId += 1),
       });
+
       this.input = {
         name: "",
         price: 0,
@@ -62,21 +67,16 @@ export default {
           price: false,
         },
       };
-      this.countTotal();
     },
-    deleteItem(id) {
-      const newList = this.itemList.filter((item) => item.id !== id);
+
+    deleteItem({ itemId }) {
+      const newList = this.itemList.filter((item) => {
+        if (item.id !== itemId) return item;
+      });
       this.itemList = newList;
-      this.countTotal();
-    },
-    countTotal() {
-      if (this.itemList.length === 0) {
-        return (this.total = 0);
-      }
-      const itemsCount = this.itemList.map((item) => item.price * item.amount);
-      this.total = itemsCount.reduce((accum, curr) => accum + curr);
     },
     checkInputsValid() {
+      let isInvalid = false;
       if (this.input.name.length > 20 || this.input.name.length === 0) {
         this.input.hasError.name = true;
       } else {
@@ -94,10 +94,17 @@ export default {
       } else {
         this.input.hasError.amount = false;
       }
+
+      isInvalid = Object.values(this.input.hasError).includes(true);
+      return isInvalid ? true : false;
     },
   },
   data() {
     return {
+      total: 0,
+      lastItemId: 0,
+      itemList: [
+      ],
       input: {
         name: "",
         price: 0,
