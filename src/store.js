@@ -21,8 +21,15 @@ export default new Vuex.Store({
             amount: 10,
             id: 2,
           },
+
+          {
+            name: '33',
+            price: 10,
+            amount: 40,
+            id: 3,
+          },
         ],
-        lastItemId: 2,
+        lastItemId: 3,
       },
       {
         id: 2,
@@ -57,7 +64,7 @@ export default new Vuex.Store({
       });
       return target;
     },
-    getListItems: (state) => ({ id }) =>{
+    getListItems: (state) => ({ id }) => {
       const target = state.lists.filter((list) => {
         return list.id === Number(id);
       });
@@ -65,38 +72,19 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    addItem(state, id) {
-      if (Object.values(state.input.hasError).includes(true)) return;
-
-      if (state.lastListId !== 0) {
-        state.lastListId++;
-      }
-      if (state.lists.length === 0) {
-        state.lastItemId = state.lists[state.lists.length - 1].id;
-      }
-      state.lastId += 1;
-      let { name, price, amount } = state.input;
-      if (!id) {
-        state.lastListId;
-      }
-      //   const targetArray = state.lists.filter((target)=>target.id === id )
-
-      state.lists.find.push({
-        name,
-        price,
-        amount,
-        id: state.lastId,
+    addListItem(state, { name, price, amount, listId }) {
+      let newList = state.lists.map((list) => {
+        if (list.id !== listId) return list;
+        list.itemList.push({
+          name,
+          price,
+          amount,
+          id: (list.lastItemId += 1),
+        });
+        list.lastItemId++;
+        return list;
       });
-      state.input = {
-        name: '',
-        price: 0,
-        amount: 0,
-        hasError: {
-          name: false,
-          amount: false,
-          price: false,
-        },
-      };
+      state.lists = newList;
     },
     countTotal() {
       if (this.itemList.length === 0) {
@@ -107,6 +95,19 @@ export default new Vuex.Store({
     },
     deleteList(state, id) {
       const newList = state.lists.filter((list) => list.id !== id);
+      state.lists = newList;
+    },
+    deleteListItem(state, { listId, itemId }) {
+      let list = state.lists.find((list) => list.id === listId);
+      let { itemList } = list;
+      const newItemList = itemList.filter((item) => item.id !== itemId);
+      const newList = state.lists.map((list) => {
+        if (list.id !== listId) return list;
+        return {
+          ...list,
+          itemList: newItemList,
+        };
+      });
       state.lists = newList;
     },
   },

@@ -42,42 +42,9 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  beforeCreate() {
-    console.log("addItem beforeCreate.");
-  },
-  created() {
-    console.log("addItem created.");
-  },
-  beforeMount() {
-    console.log("addItem beforeMount.");
-  },
-  mounted() {
-    console.log("addItem mounted.");
-  },
-  beforeUpdate() {
-    console.log("addItem beforeUpdate.");
-  },
-  updated() {
-    console.log("addItem updated.");
-  },
-  beforeDestroy() {
-    console.log("addItem beforeDestroy.");
-  },
-  destroyed() {
-    console.log("addItem destroyed.");
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log("addItem beforeRouterEnter.");
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log("addItem beforeRouterUpdate.");
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("addItem beforeRouterLeave.");
-    next();
+    lastId: {
+      type: Number,
+    },
   },
 };
 </script>

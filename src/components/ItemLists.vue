@@ -11,7 +11,7 @@
     .list-item.item-name {{ item.name }}
     .list-item.item-price {{ item.price }}
     .list-item.item-amount {{ item.amount }}
-    button.delete-btn.btn(@click="$emit('delete', item.id)") 刪除
+    button.delete-btn.btn(@click="$emit('delete',{ listId  ,itemId:item.id})") 刪除
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default {
       type: Array,
       required: true,
     },
+    listId:{
+      type: Number,
+    }
   },
 };
 </script>

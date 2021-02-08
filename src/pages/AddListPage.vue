@@ -98,7 +98,6 @@ export default {
   },
   data() {
     return {
-      itemList: [],
       input: {
         name: "",
         price: 0,
@@ -109,8 +108,6 @@ export default {
           price: false,
         },
       },
-      total: 0,
-      lastId: 0,
     };
   },
 };
