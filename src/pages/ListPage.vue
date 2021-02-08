@@ -1,6 +1,6 @@
 <template lang="pug">
 .board
-  h1.header-title 購物清單
+  h1.header-title 訂單內容
   main.container
     router-link.btn.back-btn(to="/") 返回首頁
     AddItem(
@@ -14,13 +14,13 @@
       :listId="listId",
       @delete="deleteListItem($event)"
     )
-      .total-container
-        //- span.total 總計：{{ total }}
+    Total(:total="total" v-if="list.length !== 0")
 </template>
 
 <script>
 import AddItem from "../components/AddItem.vue";
 import ItemLists from "../components/ItemLists.vue";
+import Total from "../components/Total.vue"
 import { isPriceValid, isAmountValid } from "../utilis";
 import { mapMutations } from "vuex";
 
@@ -29,6 +29,7 @@ export default {
   components: {
     AddItem,
     ItemLists,
+    Total
   },
   computed: {
     listId() {
@@ -39,6 +40,9 @@ export default {
     },
     list() {
       return this.$store.getters.getListItems(this.$route.params);
+    },
+    total() {
+      return this.$store.getters.getItemsTotal(this.$route.params);
     },
   },
   methods: {
@@ -66,14 +70,14 @@ export default {
     handleAddItem() {
       this.checkInputsValid();
       const isValid = this.checkInputsValid();
-      console.log('isValid' ,isValid)
+      console.log("isValid", isValid);
       if (isValid) return;
 
       this.$store.commit("addListItem", {
-        name:this.input.name,
+        name: this.input.name,
         price: this.input.price,
         amount: this.input.amount,
-        listId:this.listId
+        listId: this.listId,
       });
       this.input = {
         name: "",

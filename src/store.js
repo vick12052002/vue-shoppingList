@@ -8,7 +8,6 @@ export default new Vuex.Store({
     lists: [
       {
         id: 1,
-        total: 0,
         lastItemId: 3,
         itemList: [
           {
@@ -34,15 +33,15 @@ export default new Vuex.Store({
       },
       {
         id: 2,
+        lastItemId: 1,
         itemList: [
           {
             name: '2222',
-            price: 50,
-            amount: 220,
+            price: 10,
+            amount: 20,
             id: 1,
           },
         ],
-        lastItemId: 1,
       },
     ],
     input: {
@@ -75,8 +74,10 @@ export default new Vuex.Store({
         return list.id === Number(id);
       });
 
-      if (targetList.length === 0) return 0;
-      const itemsCount = targetList.map((item) => item.price * item.amount);
+      if (targetList[0].itemList.length === 0) return 0;
+      const itemsCount = targetList[0].itemList.map((item) => {
+        return  item.price * item.amount
+      });
       const total = itemsCount.reduce((accu, curr) => accu + curr);
       return total;
     },
@@ -96,11 +97,11 @@ export default new Vuex.Store({
       });
       state.lists = newList;
     },
-    addList(state,newList) {
+    addList(state, newList) {
       state.lists.push({
         ...newList,
-        id:state.lastListId += 1
-      })
+        id: (state.lastListId += 1),
+      });
     },
     deleteList(state, id) {
       const newList = state.lists.filter((list) => list.id !== id);

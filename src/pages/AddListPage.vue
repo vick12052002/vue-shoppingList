@@ -1,6 +1,6 @@
 <template lang="pug">
 .board
-  h1.header-title 新增購物清單
+  h1.header-title 新增訂單
   main.container
     router-link.btn.back-btn(to="/") 返回首頁
     AddItem(
@@ -9,13 +9,13 @@
       @handleChange="checkInputsValid"
     )
     ItemLists(:itemList="list", @delete="deleteItem($event)")
-      .total-container
-        span.total 總計：{{ total }}
+    Total(:total="total" v-if="list.length!==0")
 </template>
 
 <script>
 import AddItem from "../components/AddItem";
 import ItemLists from "../components/ItemLists.vue";
+import Total from "../components/Total.vue";
 import { isPriceValid, isAmountValid } from "../utilis";
 import { mapMutations } from "vuex";
 
@@ -24,6 +24,7 @@ export default {
   components: {
     AddItem,
     ItemLists,
+    Total
   },
   mounted() {
     console.log("mouted!!");
@@ -42,10 +43,15 @@ export default {
     list() {
       return this.itemList;
     },
+    total(){
+       if (this.itemList.length === 0) return 0;
+      const itemsCount = this.itemList.map((item) => item.price * item.amount);
+      const total = itemsCount.reduce((accu, curr) => accu + curr);
+      return total;
+    }
   },
   methods: {
     ...mapMutations(["deleteListItem", "addListItem"]),
-
     handleAddItem() {
       this.checkInputsValid();
       const isValid = this.checkInputsValid();
@@ -94,14 +100,12 @@ export default {
       } else {
         this.input.hasError.amount = false;
       }
-
       isInvalid = Object.values(this.input.hasError).includes(true);
       return isInvalid ? true : false;
     },
   },
   data() {
     return {
-      total: 0,
       lastItemId: 0,
       itemList: [
       ],

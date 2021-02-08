@@ -1,10 +1,10 @@
 <template lang="pug">
 .board
-  h1.header-title 所有清單
+  h1.header-title 所有訂單
   main.container
-    router-link.btn.add-btn(to="/addList") 新增清單
+    router-link.btn.add-btn(to="/addList") 新增訂單
     .item-list-container
-      .list-item.item-name.empty(v-if="lists.length === 0") 清單為空
+      .list-item.item-name.empty(v-if="lists.length === 0") 訂單為空
       .item-container(:key="list.id", v-for="list in lists", )
         router-link.list-item.item-name(:to="{ name: 'list', params: { id:`${ list.id }` }}") {{ list.id }}
         button.delete-btn.btn(@click="deleteList(list.id)") 刪除
