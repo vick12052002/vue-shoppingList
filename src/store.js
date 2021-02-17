@@ -12,12 +12,12 @@ export default new Vuex.Store({
   state: localLists,
   getters: {
     getLists: (state) => ({ page, limit }) => {
-      let target = [];
-      let limitNum = Number(limit);
-      let pageAmount = Number(page);
       const listsLength = state.lists.length;
       let start;
       let end;
+      let target = [];
+      let limitNum = Number(limit);
+      let pageAmount = Number(page);
       // 如果參數 page 小餘或不是數字，則預設為初始值 1
       if (pageAmount < 0|| pageAmount === 0 || isNaN(pageAmount)) {
         pageAmount = pageInit;

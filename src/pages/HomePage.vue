@@ -24,7 +24,7 @@
 
 <script>
 import Pagination from "../components/ Pagination.vue";
-
+import { setLocalStorage } from '../utilis'
 export default {
   name: "Home",
   components: { Pagination },
@@ -46,6 +46,7 @@ export default {
   },
   updated() {
     console.log("HomePage updated.");
+    setLocalStorage(this.$store.state)
   },
   beforeDestroy() {
     console.log("HomePage beforeDestroy.");
