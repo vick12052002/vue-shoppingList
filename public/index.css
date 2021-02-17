@@ -215,7 +215,12 @@ body {
   position: absolute;
   right: 80px;
 }
-
+.pagination-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
 /* .fade-enter-active {
   transition: all 0.3s ease;
   animation-name: slideUp;
@@ -224,6 +229,17 @@ body {
 .fade-leave-to {
   transition: opacity ;
 } */
+.page-btn{
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-shadow: 2px 1px 4px #666;
+  transition: ease-in-out 0.7s transform;
+  background-color: #c0c3ff;
+}
 @keyframes slideUp {
   0% {
     top: 0;

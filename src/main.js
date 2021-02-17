@@ -6,7 +6,6 @@ import { sync } from 'vuex-router-sync';
 
 sync(store, router)
 
-
 new Vue({
   router,
   store,

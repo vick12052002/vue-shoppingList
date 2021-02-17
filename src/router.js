@@ -10,7 +10,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: `/`,
       name: 'home',
       component: HomePage,
     },
@@ -25,7 +25,7 @@ export default new Router({
       component: ListPage,
     },
     {
-      path: '/*',
+      path: `/*`,
       name: 'default',
       component: HomePage,
     },
