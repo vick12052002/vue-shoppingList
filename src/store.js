@@ -1,61 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { getLocalStorage, checkFormValid } from './utilis';
+
 
 Vue.use(Vuex);
+let localLists = getLocalStorage()
+console.log('app getLocalList',localLists)
 
 export default new Vuex.Store({
-  state: {
-    lists: [
-      {
-        id: 1,
-        lastItemId: 3,
-        itemList: [
-          {
-            name: '111',
-            price: 20,
-            amount: 210,
-            id: 1,
-          },
-          {
-            name: '124',
-            price: 90,
-            amount: 10,
-            id: 2,
-          },
-
-          {
-            name: '33',
-            price: 10,
-            amount: 40,
-            id: 3,
-          },
-        ],
-      },
-      {
-        id: 2,
-        lastItemId: 1,
-        itemList: [
-          {
-            name: '2222',
-            price: 10,
-            amount: 20,
-            id: 1,
-          },
-        ],
-      },
-    ],
-    input: {
-      name: '',
-      price: 0,
-      amount: 0,
-      hasError: {
-        name: false,
-        amount: false,
-        price: false,
-      },
-    },
-    lastListId: 2,
-  },
+  state:localLists,
   getters: {
     getList: (state) => ({ id }) => {
       const target = state.lists.filter((list) => {
@@ -69,6 +22,16 @@ export default new Vuex.Store({
       });
       return target[0].itemList;
     },
+    getListItem: (state) => ({ listId, itemId }) => {
+      const target = state.lists.filter((list) => {
+        return list.id === Number(listId);
+      });
+      const targetList = target[0].itemList;
+      const item = targetList.filter((item) => {
+        if (item.id === itemId) return item;
+      });
+      return item[0];
+    },
     getItemsTotal: (state) => ({ id }) => {
       const targetList = state.lists.filter((list) => {
         return list.id === Number(id);
@@ -76,7 +39,7 @@ export default new Vuex.Store({
 
       if (targetList[0].itemList.length === 0) return 0;
       const itemsCount = targetList[0].itemList.map((item) => {
-        return  item.price * item.amount
+        return item.price * item.amount;
       });
       const total = itemsCount.reduce((accu, curr) => accu + curr);
       return total;
@@ -91,6 +54,11 @@ export default new Vuex.Store({
           price,
           amount,
           id: (list.lastItemId += 1),
+          hasError: {
+            amount: false,
+            name: false,
+            price: false,
+          },
         });
         list.lastItemId++;
         return list;
@@ -118,6 +86,47 @@ export default new Vuex.Store({
           itemList: newItemList,
         };
       });
+      state.lists = newList;
+    },
+    handleChangeEdit(state, { listId, itemId }) {
+      const newList = state.lists.map((list) => {
+        if (list.id !== listId) return list;
+
+        const newItem = list.itemList.map((item) => {
+          if (item.id !== itemId) return item;
+          return {
+            ...item,
+            isEditing: !item.isEditing,
+          };
+        });
+
+        return {
+          ...list,
+          itemList: newItem,
+        };
+      });
+
+      state.lists = newList;
+    },
+    checkEditedInputValid(state, { listId, itemId }) {
+      const newList = state.lists.map((list) => {
+        if (list.id !== listId) return list;
+
+        const newItem = list.itemList.map((item) => {
+          if (item.id !== itemId) return item;
+          checkFormValid(item);
+          console.log('item的狀態，確認完有無錯誤後的狀態', item);
+          return {
+            ...item,
+          };
+        });
+
+        return {
+          ...list,
+          itemList: newItem,
+        };
+      });
+
       state.lists = newList;
     },
   },

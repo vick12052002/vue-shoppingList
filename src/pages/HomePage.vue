@@ -15,18 +15,41 @@
 export default {
   name: "Home",
   components: {},
-  beforeMount() {
-    console.log("beforeMount!!");
-    console.log("beforeMount params", this.$route.params);
-    console.log("beforeMount path", this.$route.path);
-    console.log("beforeMount query", this.$route.query);
-    console.log("beforeMount route", this.$store.state.lists);
+  beforeCreate () {
+    console.log('HomePage beforeCreate.');
   },
-  mounted() {
-    console.log("mouted!!");
-    console.log("mouted params", this.$route.params);
-    console.log("mouted path", this.$route.path);
-    console.log("mouted query", this.$route.query);
+  created () {
+    console.log('HomePage created.');
+  },
+  beforeMount () {
+    console.log('HomePage beforeMount.');
+  },
+  mounted () {
+    console.log('HomePage mounted.');
+  },
+  beforeUpdate () {
+    console.log('HomePage beforeUpdate.');
+  },
+  updated () {
+    console.log('HomePage updated.');
+  },
+  beforeDestroy () {
+    console.log('HomePage beforeDestroy.');
+  },
+  destroyed () {
+    console.log('HomePage destroyed.');
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('HomePage beforeRouterEnter.');
+    next();
+  },
+  beforeRouteUpdate (to, from, next) {
+    console.log('HomePage beforeRouterUpdate.');
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('HomePage beforeRouterLeave.');
+    next();
   },
   computed: {
     lists() {

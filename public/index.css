@@ -42,7 +42,8 @@ body {
   padding: 40px 0 20px;
 }
 
-.list-title-container, .item-container {
+.list-title-container,
+.item-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,8 +75,8 @@ body {
   width: 200px;
   flex-grow: 3;
 }
-.list-title-amount{
-  flex-grow: 2;
+.list-title-amount {
+  flex-grow: 1.5;
 }
 .total-container {
   text-align: right;
@@ -160,36 +161,96 @@ body {
   font-size: 20px;
   border-radius: 10px;
 }
-.item-price, .item-amount{
+.item-price,
+.item-amount {
   flex-grow: 1;
 }
-.add-btn, .back-btn{
+.add-btn,
+.back-btn {
   background-color: #f38888;
   display: unset;
   position: absolute;
-  top:10px;
-  right:20px;
+  top: 10px;
+  right: 20px;
+}
+.hide {
+  display: none;
+}
+.input {
+  max-width: 120px;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+.input-name {
+  max-width: 300px;
+  border: none;
+  border-bottom: 1px solid #999;
+  position: relative;
+}
+.input-price,
+.input-amount {
+  max-width: 70px;
+  border: none;
+  border-bottom: 1px solid #999;
+  text-align: right;
+}
+.list-item {
+  position: relative;
 }
 
-@media(max-width: 768px) {
+/* .fade-enter-active {
+  transition: all 0.3s ease;
+  animation-name: slideUp;
+  animation-duration: 0.3s;
+}
+.fade-leave-to {
+  transition: opacity ;
+} */
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  25% {
+    top: -10px;
+    transform: skewY(5deg);
+    /* transform: rotate(0.2turn); */
+  }
+  50% {
+    top: -8px;
+  }
+  75% {
+    top: -10px;
+    transform: skewY(-5deg);
+    /* transform: rotate(-0.2turn); */
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
   .inputs {
     display: flex;
     flex-wrap: wrap;
   }
-  .list-title-container, .item-container {
+  .list-title-container,
+  .item-container {
     margin-left: 0;
   }
   .item-name {
     min-width: auto;
   }
 }
-
-@media(max-width: 481px) {
+.btn-group {
+  flex-grow: 2;
+}
+@media (max-width: 481px) {
   .inputs {
     display: flex;
     flex-wrap: wrap;
   }
-  .list-title-container, .item-container {
+  .list-title-container,
+  .item-container {
     margin-left: 0;
   }
   .item-name {
