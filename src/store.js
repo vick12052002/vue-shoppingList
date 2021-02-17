@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state:localLists,
   getters: {
     getList: (state) => ({ id }) => {
+      console.log('store 內的 id',id)
       const target = state.lists.filter((list) => {
         return list.id === Number(id);
       });
