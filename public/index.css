@@ -20,6 +20,7 @@ body {
   border: #8489ee 3px solid;
   background-color: #eef;
   padding: 30px;
+  position: relative;
 }
 
 .header-title {
@@ -38,9 +39,11 @@ body {
 
 .item-list-container {
   text-align: left;
+  padding: 40px 0 20px;
 }
 
-.list-title-container, .item-container {
+.list-title-container,
+.item-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +58,12 @@ body {
 .item-container {
   background-color: #fff;
   margin-bottom: 20px;
-  padding: 15px 30px;
+  padding: 20px 30px;
+  transition: 0.5s all ;
+}
+
+.item-wrapper:hover {
+  transform: scale(1.05);
 }
 
 .add-item-form {
@@ -72,8 +80,8 @@ body {
   width: 200px;
   flex-grow: 3;
 }
-.list-title-amount{
-  flex-grow: 2;
+.list-title-amount {
+  flex-grow: 1.5;
 }
 .total-container {
   text-align: right;
@@ -93,20 +101,29 @@ body {
   left: 50px;
   font-size: 16px;
 }
+.edited-error-message{
+  color: #ff1111;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  font-size: 16px;
+}
 
 .btn {
   color: white;
-  display: block;
   border: none;
   padding: 8px 12px;
+  font-size: 18px;
   border-radius: 3px;
   cursor: pointer;
   text-shadow: 2px 1px 4px #666;
   transition: ease-in-out 0.7s transform;
+  background-color: #c0c3ff;
 }
 
 .btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
+  text-shadow: none;
 }
 
 .submit-btn {
@@ -139,9 +156,16 @@ body {
 }
 
 .delete-btn:hover {
-  background-color: #ff1111;
+  background-color: #f80d0d;
 }
 
+.find-btn{
+  position: absolute;
+  top: 10px;
+  right: 0;
+  background-color: #c0c3ff;
+
+}
 .inputs {
   display: flex;
   flex-wrap: wrap;
@@ -156,29 +180,156 @@ body {
   font-size: 20px;
   border-radius: 10px;
 }
-.item-price, .item-amount{
+.item-price,
+.item-amount {
   flex-grow: 1;
 }
+.add-btn,
+.back-btn {
+  background-color: #f38888;
+  display: unset;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.hide {
+  display: none;
+}
+.input {
+  max-width: 120px;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+.input-name {
+  max-width: 300px;
+  border: none;
+  border-bottom: 1px solid #999;
+  position: relative;
+}
+.input-price,
+.input-amount {
+  max-width: 70px;
+  border: none;
+  border-bottom: 1px solid #999;
+  text-align: right;
+}
+.list-item {
+  position: relative;
+}
+.find-container{    
+  position: absolute;
+  top: 0;
+  right: 130px;
+  width: 80%
+}
+.input-find {
+  top: 17px;
+  position: absolute;
+  right: 80px;
+  height: 22px;
+}
+.input:focus{
+  outline:none;
+}
+.pagination-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin-top:20px;
+}
+a {
+  text-decoration: none;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 1s ease;
+  animation-name: slideLeft;
+  animation-duration: 0.8s;
+}
+.fade-leave {
+  opacity: 0;
+}
+.fade-leave-active {
+  opacity: 0;
+}
+.slide-enter-active{
+  animation-name: slideUp;
+  animation-duration: 0.5s;
+}
+.slide-leave{
+  opacity: 1;
+}
+.slide-leave-active{
+  opacity: 0;
+}
+.page-btn{
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-shadow: 2px 1px 4px #666;
+  transition: ease-in-out 0.7s transform;
+  background-color: #c0c3ff;
+}
+@keyframes slideUp {
+  0% {
+    top: 0;
+  }
+  25% {
+    top: -10px;
+    transform: skewY(5deg);
+  }
+  50% {
+    top: -8px;
+  }
+  75% {
+    top: -10px;
+    transform: skewY(-5deg);
+  }
+  100% {
+    top: 0;
+  }
+}
+@keyframes slideLeft {
+  0% {
+    width: 50%;
+  }
+  75% {
+    width: 87%;
+  }
+  100% {
+    width: auto;
+  }
+}
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .inputs {
     display: flex;
     flex-wrap: wrap;
   }
-  .list-title-container, .item-container {
+  .list-title-container,
+  .item-container {
     margin-left: 0;
   }
   .item-name {
     min-width: auto;
   }
 }
-
-@media(max-width: 481px) {
+.btn-group {
+  flex-grow: 2;
+}
+@media (max-width: 481px) {
   .inputs {
     display: flex;
     flex-wrap: wrap;
   }
-  .list-title-container, .item-container {
+  .list-title-container,
+  .item-container {
     margin-left: 0;
   }
   .item-name {
