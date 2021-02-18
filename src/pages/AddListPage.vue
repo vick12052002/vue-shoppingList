@@ -21,7 +21,7 @@
 import AddItem from "../components/AddItem";
 import ItemLists from "../components/ItemLists.vue";
 import Total from "../components/Total.vue";
-import { isPriceValid, isAmountValid, checkFormValid } from "../utilis";
+import { checkFormValid } from "../utilis";
 import { mapMutations } from "vuex";
 
 export default {
@@ -30,39 +30,6 @@ export default {
     AddItem,
     ItemLists,
     Total,
-  },
-  beforeCreate() {
-    console.log("Add beforeCreate.");
-  },
-  created() {
-    console.log("Add created.");
-  },
-  beforeMount() {
-    console.log("Add beforeMount.");
-  },
-  mounted() {
-    console.log("Add mounted.");
-  },
-  beforeUpdate() {
-    console.log("Add beforeUpdate.");
-  },
-  updated() {
-    console.log("Add updated.");
-  },
-  destroyed() {
-    console.log("Add destroyed.");
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log("Add beforeRouterEnter.");
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log("Add beforeRouterUpdate.");
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("Add beforeRouterLeave.");
-    next();
   },
   beforeDestroy() {
     console.log("App beforeDestroy.");
@@ -122,31 +89,15 @@ export default {
     },
     checkInputsValid() {
       let isInvalid = false;
-      if (this.input.name.length > 20 || this.input.name.length === 0) {
-        this.input.hasError.name = true;
-      } else {
-        this.input.hasError.name = false;
-      }
-
-      if (this.input.price === 0 || !isPriceValid(this.input.price)) {
-        this.input.hasError.price = true;
-      } else {
-        this.input.hasError.price = false;
-      }
-
-      if (this.input.amount === 0 || !isAmountValid(this.input.amount)) {
-        this.input.hasError.amount = true;
-      } else {
-        this.input.hasError.amount = false;
-      }
+      this.input = checkFormValid(this.input);
       isInvalid = Object.values(this.input.hasError).includes(true);
       return isInvalid ? true : false;
+
     },
     checkEditedInputsValid({ itemId }) {
       const newItems = this.itemList.map((item) => {
         if (item.id !== itemId) return item;
         item = checkFormValid(item);
-        console.log("item的狀態，確認完有無錯誤後的狀態", item);
         return {
           ...item,
         };

@@ -29,47 +29,12 @@ import { setLocalStorage } from "../utilis";
 export default {
   name: "Home",
   components: { Pagination },
-  beforeCreate() {
-    console.log("HomePage beforeCreate.");
-  },
-  created() {
-    console.log("HomePage created.");
-    console.log("query", this.$route.query);
-  },
-  beforeMount() {
-    console.log("HomePage beforeMount.");
-  },
-  mounted() {
-    console.log("HomePage mounted.");
-  },
-  beforeUpdate() {
-    console.log("HomePage beforeUpdate.");
-  },
   updated() {
     console.log("HomePage updated.");
     setLocalStorage(this.$store.state);
   },
-  beforeDestroy() {
-    console.log("HomePage beforeDestroy.");
-  },
-  destroyed() {
-    console.log("HomePage destroyed.");
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log("HomePage beforeRouterEnter.");
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log("HomePage beforeRouterUpdate.");
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("HomePage beforeRouterLeave.");
-    next();
-  },
   computed: {
     lists() {
-      console.log(this.orderId.length === 0);
       if (this.orderId.length === 0)
         return this.$store.getters.getLists({
           page: this.page,

@@ -24,7 +24,7 @@ import AddItem from "../components/AddItem.vue";
 import ItemLists from "../components/ItemLists.vue";
 import Total from "../components/Total.vue";
 
-import { isPriceValid, isAmountValid } from "../utilis";
+import { checkFormValid } from "../utilis";
 import { mapMutations } from "vuex";
 
 export default {
@@ -49,23 +49,7 @@ export default {
     ...mapMutations(["deleteListItem", "handleChangeEdit","checkEditedInputValid"]),
     checkInputsValid() {
       let isInvalid = false;
-      if (this.input.name.length === 0) {
-        this.input.hasError.name = true;
-      } else {
-        this.input.hasError.name = false;
-      }
-
-      if (this.input.price === 0 || !isPriceValid(this.input.price)) {
-        this.input.hasError.price = true;
-      } else {
-        this.input.hasError.price = false;
-      }
-
-      if (this.input.amount === 0 || !isAmountValid(this.input.amount)) {
-        this.input.hasError.amount = true;
-      } else {
-        this.input.hasError.amount = false;
-      }
+      this.input = checkFormValid(this.input)
 
       isInvalid = Object.values(this.input.hasError).includes(true);
       return isInvalid ? true : false;

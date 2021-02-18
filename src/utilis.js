@@ -91,7 +91,6 @@ export const isAmountValid = function(amount) {
 };
 
 export const checkFormValid = function(list) {
-  console.log('list',list)
   const { name, price, amount, hasError } = list;
 
   if (name.length === 0) {

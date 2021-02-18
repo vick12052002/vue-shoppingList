@@ -158,10 +158,9 @@ export default new Vuex.Store({
 
         const newItem = list.itemList.map((item) => {
           if (item.id !== itemId) return item;
-          checkFormValid(item);
-          console.log('item的狀態，確認完有無錯誤後的狀態', item);
+          let checkedItem = checkFormValid(item);
           return {
-            ...item,
+            ...checkedItem,
           };
         });
 
