@@ -1,8 +1,6 @@
 <template lang="pug">
 #app
   .wrapper
-    router-link.btn.delete-btn(to="/") 首頁
-    router-link.btn.delete-btn(to="/addList") 新增訂單
   router-view 
 </template>
 
